@@ -1,6 +1,5 @@
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 public class Client extends Thread {
     final static String IP = "localhost";
@@ -22,7 +21,10 @@ public class Client extends Thread {
         Object res = RPC.callMethod(IP, PORT, new CallInfo("Calculator", "sumar", p_));
         System.out.println("Respuesta: " + res);
         System.out.println("Resta: " + RPC.callMethod(IP, PORT, new CallInfo("Calculator", "restar", p_)));
-        System.out.println("Saldo deposito: " + RPC.callMethod(IP, PORT, new CallInfo("Bank", "depositar", p_)));        
+        Object[] s_ = {(float) 3000};
+        System.out.println("Saldo deposito: " + RPC.callMethod(IP, PORT, new CallInfo("Bank", "depositar", s_)));
+        s_[0] = (float) 2000;
+        System.out.println("Saldo deposito: " + RPC.callMethod(IP, PORT, new CallInfo("Bank", "retirar", s_)));
     }
     
     public static void main(String[] args) {
