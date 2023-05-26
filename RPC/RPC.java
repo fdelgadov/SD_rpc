@@ -1,15 +1,16 @@
+package RPC;
 import java.io.*;
 import java.util.*;
 import java.net.*;
 
 public class RPC {
-    static Map<String, Object> services = new HashMap<String, Object>();
+    static Map<String, Object> services = new HashMap<String, Object>(); //{key, value}
     
-    static void addService(String name, Object service) {
+    public static void addService(String name, Object service) {
         services.put(name, service);
     }
     
-    static Object execService(CallInfo ci){
+    public static Object execService(CallInfo ci){ //Servidor
         Object s = services.get(ci.service);
         Object res = null;
         Object[] p_ = new Object[ci.params.length];
@@ -27,7 +28,7 @@ public class RPC {
         return res;
     }
     
-    static Object callMethod(String ip, int port, CallInfo ci) {
+    public static Object callMethod(String ip, int port, CallInfo ci) { //CLiente
         Socket s;
         try {
             s = new Socket(ip, port);

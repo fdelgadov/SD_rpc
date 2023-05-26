@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import RPC.*;
 
 public class Client extends Thread {
     final static String IP = "localhost";
@@ -18,7 +19,7 @@ public class Client extends Thread {
     
     public void run() {
         Object[] p_ = {a, b};
-        Object res = RPC.callMethod(IP, PORT, new CallInfo("Calculator", "sumar", p_));
+        Object res = RPC.callMethod(IP, PORT, new CallInfo("Calculator", "sumar", p_)); //Cliente -> Servidor
         System.out.println("Respuesta: " + res);
         System.out.println("Resta: " + RPC.callMethod(IP, PORT, new CallInfo("Calculator", "restar", p_)));
         Object[] s_ = {(float) 3000};

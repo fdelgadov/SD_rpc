@@ -1,6 +1,8 @@
 import java.io.*;
 import java.net.*;
 
+import RPC.*;
+
 public class Server {
     final static int PORT = 5555;
     
@@ -8,12 +10,12 @@ public class Server {
         try {
             ServerSocket socket = new ServerSocket(PORT);
             System.out.println("Puerto " + PORT);
-            RPC.addService("Calculator", new CalculatorImpl());
+            RPC.addService("Calculator", new CalculatorImpl()); //Registro de nombres
             RPC.addService("Bank", new BancoImpl());
             while(true) {
                 Socket clientSocket = socket.accept();
                 System.out.println("Cliente aceptado");
-                Thread t = new ClientThread(clientSocket);
+                Thread t = new ClientThread(clientSocket); //Gestionar comunicación
                 t.start();
                 System.out.println("Cliente iniciado");
             }
@@ -26,7 +28,7 @@ public class Server {
     }
     
     class ClientThread extends Thread {
-        Socket socket;
+        Socket socket; //Cliente
         ObjectInputStream sInput;
         ObjectOutputStream sOuput;
         
